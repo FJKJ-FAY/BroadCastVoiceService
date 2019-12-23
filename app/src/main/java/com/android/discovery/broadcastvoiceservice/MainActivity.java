@@ -1,0 +1,58 @@
+package com.android.discovery.broadcastvoiceservice;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SeekBar;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+
+
+    private String path = "http://vcast-resource.cdn.bcebos.com/vcast-resource/ffeeefa9-e5d4-4413-ba25-def479d5b8b0.mp3";
+    private Player mPlayer;
+    private EditText mEditText;
+    private Button button;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mEditText = (EditText) findViewById(R.id.editText);
+
+        mEditText.setText(path);
+        button = findViewById(R.id.button_start);
+        button.setOnClickListener(this);
+        mPlayer = new Player();
+    }
+
+    /**
+     * 播放
+     *
+     * @param
+     */
+    public void play() {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                mPlayer.playUrl(mEditText.getText().toString().trim());
+            }
+        }).start();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button_start:
+                play();
+
+
+
+        }
+    }
+}
