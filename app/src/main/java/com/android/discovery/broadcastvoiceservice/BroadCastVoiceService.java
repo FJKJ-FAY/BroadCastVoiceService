@@ -31,7 +31,7 @@ public class BroadCastVoiceService extends Service {
 
         intentFilter = new IntentFilter();
         //设置监听广播的类型
-        intentFilter.addAction("com.android.discovery.BroadcastReceiverDemo");
+        intentFilter.addAction("com.android.discovery.action.VoiceBroadcast");
         myReceiver = new MyReceiver();
         //注册广播
         registerReceiver(myReceiver,intentFilter);

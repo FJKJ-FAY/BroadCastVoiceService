@@ -2,6 +2,7 @@ package com.android.discovery.broadcastvoiceservice;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button = findViewById(R.id.button_start);
         button.setOnClickListener(this);
         mPlayer = new Player();
+
+        service();
+    }
+
+    public void sendBroadCast() {
+        Intent intent = new Intent("com.android.discovery.action.VoiceBroadcast");
+        //发送显示广播，设置广播接收者的路径:第一个参数是包名路径；第二个参数是类名路径
+       /* intent.setComponent(new ComponentName("com.example.broadcaststudy",
+                "com.example.broadcaststudy.MyBroadcastReceiver"));*/
+        //创建Bundle
+        Bundle bundle = new Bundle();
+        String content  = mEditText.getText().toString();
+        //储存要发送的广播消息内容
+        //  bundle.putString("message",content);
+        intent.putExtra("message",content);
+        //发送广播
+        sendBroadcast(intent);
+    }
+    public void service(){
+        Intent intent = new Intent(this, BroadCastVoiceService.class);
+        Bundle bundle = new Bundle();
+        // bundle.putSerializable("Key", VoiceBroadcastService.Control.PLAY);
+        intent.putExtras(bundle);
+        startService(intent);
     }
 
     /**
@@ -50,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.button_start:
                 play();
+                sendBroadCast();
 
 
 
