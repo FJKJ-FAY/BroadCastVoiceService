@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private String path = "http://vcast-resource.cdn.bcebos.com/vcast-resource/ffeeefa9-e5d4-4413-ba25-def479d5b8b0.mp3";
-    private Player mPlayer;
+
     private EditText mEditText;
     private Button button;
 
@@ -22,18 +22,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mEditText = (EditText) findViewById(R.id.editText);
-
-        mEditText.setText(path);
-        button = findViewById(R.id.button_start);
-        button.setOnClickListener(this);
-        mPlayer = new Player();
-
-        service();
+            mEditText = (EditText) findViewById(R.id.editText);
+       // mEditText.setText(path);
+            button = findViewById(R.id.button_start);
+            button.setOnClickListener(this);
+            service();
     }
 
     public void sendBroadCast() {
         Intent intent = new Intent("com.android.discovery.action.VoiceBroadcast");
+
         //发送显示广播，设置广播接收者的路径:第一个参数是包名路径；第二个参数是类名路径
        /* intent.setComponent(new ComponentName("com.example.broadcaststudy",
                 "com.example.broadcaststudy.MyBroadcastReceiver"));*/
@@ -59,22 +57,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      *
      * @param
      */
-    public void play() {
-        new Thread(new Runnable() {
 
-            @Override
-            public void run() {
-
-                mPlayer.playUrl(mEditText.getText().toString().trim());
-            }
-        }).start();
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_start:
-                play();
+
                 sendBroadCast();
 
 
